@@ -83,6 +83,7 @@ namespace homework02
                 SW = new StreamWriter(new FileStream("sudoku.txt",FileMode.Create,FileAccess.Write));
             }
             Count++;
+            if (Count != 1) { SW.WriteLine(); }
             for (int i = 1; i < 10; i++)
             {
                 for (int j = 1; j < 10; j++)
@@ -92,7 +93,7 @@ namespace homework02
                 }
                 SW.WriteLine();
             }
-            SW.WriteLine();
+            
 
         }
         public static void CloseStreamWriter() {

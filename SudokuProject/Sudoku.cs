@@ -63,11 +63,24 @@ namespace homework02
             //找到每个块的起始点
             int a = (x - 1) / 3 * 3 + 1;
             int b = (y - 1) / 3 * 3 + 1;
-            for (int j = a; j < a + 3; j++)
+            int j_max = a + 3;
+            int k_max = b + 3;
+            //改进，同行同列不检查
+            for (int j = a;  j < j_max; j++)
             {
-                for (int k = b; k < b + 3; k++)
+                if (j == x) {
+                    continue;
+                }
+                for (int k = b; k < k_max; k++)
                 {
-                    if (j != x && k != y && sudoku[j, k] == i) return false;
+                    if (k == y)
+                    {
+                        continue;
+                    }
+                    if (sudoku[j, k] == i)
+                    {
+                        return false;
+                    }
                 }
             }
 
