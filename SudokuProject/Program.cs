@@ -15,7 +15,7 @@ namespace homework02
         {
 
             Sudoku sudoku = new Sudoku();
-            sudoku.display(new string[]{ "-c", "10000" });
+            sudoku.display(args);
 
         }
     }

@@ -18,15 +18,15 @@ namespace homework02
         private static String Filename;
         /*
          * v1.0 返回打印次数
-         * v1.1 将参数判断的格式提取出来
+         * 
          */
-        public static int ReadArgs(string[] args,string format)
+        public static int ReadArgs(string[] args)
         {
             int arg = -1;
 
             try
             {
-                if (args[0] == format)
+                if (args[0] == "-c")
                 {
                     arg = int.Parse(args[1]);
                     return arg;
@@ -99,8 +99,8 @@ namespace homework02
                 SW = new StreamWriter(new FileStream(Filename, FileMode.Create, FileAccess.Write));
             }
             Count++;
+            if(Count != 1){ SW.WriteLine(); }
             //v1.1,将i和j的上限改为数组长度，而不是固定的数值10
-  
             int i_max = array.GetLength(0);
             int j_max = array.GetLength(1);
             for (int i = 1; i < i_max; i++)
@@ -112,7 +112,7 @@ namespace homework02
                 }
                 SW.WriteLine();
             }
-            SW.WriteLine();
+            
 
         }
         /**

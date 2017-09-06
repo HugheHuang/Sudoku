@@ -22,7 +22,7 @@ namespace homework02
 
             sudoku = new int[10, 10];
             sudoku[1, 1] = (1 + 0) % 9 + 1;
-            max = Util.ReadArgs(args, "-c");
+            max = Util.ReadArgs(args);
         }
 
 
@@ -69,14 +69,24 @@ namespace homework02
             int j_max = a + 3;
             int k_max = b + 3;
             //v1.1 同行同列不检查（之前检查过了）
-            for (int j = a; j < j_max && j != x; j++)
+            for (int j = a; j < j_max; j++)
             {
-                for (int k = b; k < k_max && k != y; k++)
+                if (j == x)
                 {
-                    if (j != x && k != y && sudoku[j, k] == i) return false;
+                    continue;
+                }
+                for (int k = b; k < k_max; k++)
+                {
+                    if (k == y)
+                    {
+                        continue;
+                    }
+                    if (sudoku[j, k] == i)
+                    {
+                        return false;
+                    }
                 }
             }
-
             return true;
         }
     }
