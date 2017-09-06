@@ -7,21 +7,26 @@ using System.IO;
 
 namespace homework02
 {
+    /**
+     * v1.0 工具类，实现IO操作
+     * v1.1 提高代码复用
+     */
     public class Util
     {
-        private static StreamWriter SW ;
+        private static StreamWriter SW;
         public static int Count { get; private set; }
-        
-          
-        
-        public static int ReadArgs(string[] args)
+        private static String Filename;
+        /*
+         * v1.0 返回打印次数
+         * v1.1 将参数判断的格式提取出来
+         */
+        public static int ReadArgs(string[] args,string format)
         {
             int arg = -1;
 
-
             try
             {
-                if (args[0] == "-c")
+                if (args[0] == format)
                 {
                     arg = int.Parse(args[1]);
                     return arg;
@@ -30,21 +35,18 @@ namespace homework02
                 {
                     DoWhile(ref arg);
                 }
-
             }
             catch (Exception)
             {
-                
-                
                 DoWhile(ref arg);
             }
-            
-            
-
             return arg;
 
         }
-
+        /**
+         * 该函数是对输入参数错误的处理：
+         * 不断循环，直至加入正确的参数。
+         */
         private static int DoWhile(ref int arg)
         {
             while (true)
@@ -73,19 +75,37 @@ namespace homework02
                 {
                     return arg;
                 }
-                
+
             }
         }
-
-        public static void Show(ref int[,] array)
+        /**
+         * 该函数实现数组输出到文件工作
+         */
+        public static void Show(ref int[,] array,string filename)
         {
-            if (SW == null) {
-                SW = new StreamWriter(new FileStream("sudoku.txt",FileMode.Create,FileAccess.Write));
+            if (SW == null)
+            {
+                //v1.1,将输出文件的文件名改为参数传递
+                Filename = filename;
+                SW = new StreamWriter(new FileStream(Filename, FileMode.Create, FileAccess.Write));
+                
+            }
+            else if (!Filename.Equals(filename))
+            {
+                //V1.1,新增的分支。Show函数在调用过程中可能会改变文件输出路径
+                //虽然在本题中不可能
+                CloseStreamWriter();
+                Filename = filename;
+                SW = new StreamWriter(new FileStream(Filename, FileMode.Create, FileAccess.Write));
             }
             Count++;
-            for (int i = 1; i < 10; i++)
+            //v1.1,将i和j的上限改为数组长度，而不是固定的数值10
+  
+            int i_max = array.GetLength(0);
+            int j_max = array.GetLength(1);
+            for (int i = 1; i < i_max; i++)
             {
-                for (int j = 1; j < 10; j++)
+                for (int j = 1; j < j_max; j++)
                 {
                     if (j == 1) SW.Write(array[i, j]);
                     else SW.Write(" " + array[i, j]);
@@ -95,7 +115,11 @@ namespace homework02
             SW.WriteLine();
 
         }
-        public static void CloseStreamWriter() {
+        /**
+         * 关闭文件流
+         */
+        public static void CloseStreamWriter()
+        {
             if (SW != null) SW.Close();
         }
     }

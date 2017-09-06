@@ -8,15 +8,15 @@ namespace homework02
 {
     class Program
     {
-        
-       
+
+
 
         static void Main(string[] args)
         {
-           
+
             Sudoku sudoku = new Sudoku();
-            sudoku.display(args);
-            
+            sudoku.display(new string[]{ "-c", "10000" });
+
         }
     }
 }

@@ -15,9 +15,6 @@ namespace homework02
         {
             init(args);
             dfs(1, 2);
-
-
-
         }
 
         private void init(string[] args)
@@ -25,7 +22,7 @@ namespace homework02
 
             sudoku = new int[10, 10];
             sudoku[1, 1] = (1 + 0) % 9 + 1;
-            max = Util.ReadArgs(args);
+            max = Util.ReadArgs(args, "-c");
         }
 
 
@@ -33,7 +30,7 @@ namespace homework02
         {
             if (x == 10)
             {
-                Util.Show(ref sudoku);
+                Util.Show(ref sudoku, "sudoku.txt");
                 return;
             }
             for (int i = 1; i < 10; i++)
@@ -56,16 +53,25 @@ namespace homework02
         private Boolean check(int i, int x, int y)
         {
             //行检查
-            for (int k = 1; k < y; k++) { if (sudoku[x, k] == i) return false; }
+            for (int k = 1; k < y; k++)
+            {
+                if (sudoku[x, k] == i) return false;
+            }
             //列检查
-            for (int k = 1; k < x; k++) { if (sudoku[k, y] == i) return false; }
+            for (int k = 1; k < x; k++)
+            {
+                if (sudoku[k, y] == i) return false;
+            }
             //九宫格检查
             //找到每个块的起始点
             int a = (x - 1) / 3 * 3 + 1;
             int b = (y - 1) / 3 * 3 + 1;
-            for (int j = a; j < a + 3; j++)
+            int j_max = a + 3;
+            int k_max = b + 3;
+            //v1.1 同行同列不检查（之前检查过了）
+            for (int j = a; j < j_max && j != x; j++)
             {
-                for (int k = b; k < b + 3; k++)
+                for (int k = b; k < k_max && k != y; k++)
                 {
                     if (j != x && k != y && sudoku[j, k] == i) return false;
                 }
