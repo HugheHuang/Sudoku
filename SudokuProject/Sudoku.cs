@@ -15,9 +15,6 @@ namespace homework02
         {
             init(args);
             dfs(1, 2);
-
-
-
         }
 
         private void init(string[] args)
@@ -31,11 +28,7 @@ namespace homework02
 
         private void dfs(int x, int y)
         {
-            if (x == 10)
-            {
-                Util.Show(ref sudoku);
-                return;
-            }
+            
             for (int i = 1; i < 10; i++)
             {
                 if (Util.Count == max)
@@ -46,7 +39,12 @@ namespace homework02
                 if (check(i, x, y))
                 {
                     sudoku[x, y] = i;
-                    if (y == 9) dfs(x + 1, 1);
+                    if (x == 9 && y == 9)
+                    {
+                        Util.Show(ref sudoku);
+                        return;
+                    }
+                    else if (y == 9) dfs(x + 1, 1);
                     else dfs(x, y + 1);
                 }
             }
