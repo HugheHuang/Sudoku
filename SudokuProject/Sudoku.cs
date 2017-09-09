@@ -15,6 +15,7 @@ namespace homework02
         {
             init(args);
             dfs(1, 2);
+            Util.CloseStreamWriter();
         }
 
         private void init(string[] args)
@@ -33,7 +34,6 @@ namespace homework02
             {
                 if (Util.Count == max)
                 {
-                    Util.CloseStreamWriter();
                     return;
                 }
                 if (check(i, x, y))
